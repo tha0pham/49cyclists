@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Sign Up</title>
+		<meta charset="utf-8">
+		<!-- stylesheets -->
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<!-- tooltipster css -->
+		<link rel="stylesheet" type="text/css" href="css/tooltipster.bundle.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/tooltipster-sideTip-noir.min.css" />
+		<!-- scripts -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<!-- jQuery validation -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+		<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script> -->
+		<!-- tooltipster  -->
+		<script src="js/tooltipster.bundle.min.js"></script>
+		<!-- google map -->
+		<!-- <script async defer
+    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNzbs2UZzcuyxypigujNAuTjhM9B-OUH8&callback=initMap">
+    	</script> -->
+    	<!-- jQuery UI -->
+    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="js/scripts.js"></script>
+		
+	</head>
+
+	<body>
+		<div id="header-wrapper"></div>
+		<div id="popup"></div>
+		<main class="content">
+			<section>
+				<h2>Sign up to explore the routes</h2>
+				<form method="POST" action="#" id="signupForm">
+					  <fieldset>
+					    <legend>Please provide the information below</legend>
+					    <div>
+					      <label for="firstName">First Name</label>
+					      <input class="tooltip" title="What should we call you?" id="firstName" name="firstName" type="text" placeholder="Caro">
+
+					    </div>
+					    <div>
+					      <label for="lastName">Last Name</label>
+					      <input class="tooltip" title="... and your last name?" id="lastName" name="lastName" type="text" placeholder="Lina">
+
+					    </div>
+					    <div>
+					      <label for="email">Email</label>
+					      <input class="tooltip" title="Don't worry, we dislike spams too" id="email" type="email" name="email" placeholder="caro@example.com">
+
+					    </div>
+					    <div>
+					      <label for="password">Password</label>
+					      <input class="tooltip" title="Gotta be a strong one ;)" id="password" type="password" name="password">
+
+					    </div>
+					    <div>
+					      <label for="password">Confirm Password</label>
+					      <input class="tooltip" title="I take after the guy above!" id="confirmPassword" type="password" name="confirmPassword">
+
+					    </div>
+					    <div>
+					      <button class="submit button" id="submit" value="submit">Submit</button>
+					    </div>
+
+					    <div class="errorContainer"></div>
+					  </fieldset>	  
+				</form>
+
+			</section>
+		</main>
+		
+		<div id="footer-wrapper"></div>
+	</body>
+</html>
