@@ -181,15 +181,64 @@ $(function(e){
       $(element).css("boxShadow","0 0 3px green");
     },
     // TODO: submit form using AJAX
-          submitHandler: function() { alert("TODO: submit form using AJAX"); },
+          //submitHandler: function() { alert("TODO: submit form using AJAX"); },
   }); // end sign up validation
 
   // password check
   $.validator.addMethod("myPassword", function(value){
-    console.log(value);
     return /[a-z]/.test(value) && /[0-9]/.test(value) &&/[A-Z]/.test(value);
   }, "Password must contain at least 1 lowercase, 1 uppercase and 1 digit");
   // end password check
+  
+  /* AJAX requests *********************/
+  // sign up form
+  $("#signupForm").submit(function(event){
+    event.preventDefault();
+    var requestData = $(this).serialize();
+    console.log(requestData);
+
+    $.ajax({
+      url: "signup.php",
+      method: "POST",
+      data: requestData,
+      dataType: "json",
+      success: function(response) {
+        $("#signupForm").hide();
+        $("h2").text("Sign up successful");
+
+        var welcomeMessage = "Welcome, " + response.firstName + "! Use your email " + response.email + " to log in.";
+
+        $("section").append($("<p></p>").text(welcomeMessage));
+        $("section").append($("<a href='search.html'></a>").text("Search Routes"));
+      }, //end successful requests handler
+      error: function(response) {
+            alert(response.status);
+      },
+    });//end ajax
+
+  });//end sign up submission
+
+  //search form
+  
+  $("#searchForm").submit(function(e)
+{    e.preventDefault();
+    
+    var data = "";
+    
+    $.ajax({
+        url: "https://reqres.in/api/products/3",
+        method: "GET",
+        dataType: "JSON"
+      }).done(function(data){
+        if ( console && console.log ) {
+        console.log(data);
+        }
+      });// end ajax request handling
+  });//end search form
+
+
+
+
 }); // end ready event
 
 // method to locate UNCC on embedded google map
