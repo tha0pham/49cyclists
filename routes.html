@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Get Started</title>
+		<meta charset="utf-8">
+		<!-- stylesheets -->
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<!-- tooltipster css -->
+		<link rel="stylesheet" type="text/css" href="css/tooltipster.bundle.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/tooltipster-sideTip-noir.min.css" />
+		<!-- scripts -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<!-- jQuery validation -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+		<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script> -->
+		<!-- tooltipster  -->
+		<script src="js/tooltipster.bundle.min.js"></script>
+		<!-- jQuery UI -->
+    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="js/scripts.js"></script>
+		
+	</head>
+
+	<body>
+		<div id="header-wrapper"></div>
+		<div id="popup"></div>
+		<main class="content">
+			<section>
+				<h2 class="feature">Let's get started!</h2>
+				<form>
+					<div>
+						<label for="zip">Zip Code</label>
+						<select id="zip">
+							<option value="" disabled selected>Select ZIP</option>
+						</select>
+					</div>
+				</form>
+				<table id="forecastTable">
+					<tr id="dateRow"><th>Date</th></tr>
+					<tr id="highRow"><th>High</th></tr>
+					<tr id="lowRow"><th>Low</th></tr>
+					<tr id="descRow"><th>Description</th></tr>
+					<tr id="imgRow"><th></th></tr>
+				</table>
+			</section>	
+		</main>
+		
+		<div id="footer-wrapper"></div>
+	</body>
+</html>
+
+<!-- <script type="text/javascript">
+	$(function(e){
+		$("#forecastTable").hide();	
+		$.getJSON("zip.json", function( data ) {
+		  	$.each(data, function() {
+		   		$.each(this, function(key, value) {
+					$("#zip").append('<option value="'+value+'">'+value+'</option>');
+			});
+		  });
+		});
+	});//end ready
+
+	$("#zip").change(function(e){
+		var zip = $("#zip").val();
+		var requestData = {"zip":zip};
+
+		console.log(zip);
+    	$.ajax({
+			url: "https://wp.zybooks.com/weather.php", 
+			method: "GET",
+			data: requestData,
+			dataType: "json",
+		})
+		.done(function(data) {
+			if (data.success == true) {
+				$("#forecastTable tr td").each(function(){
+					$(this).remove();
+				});
+
+				var date = new Date();
+				$.each(data.forecast, function(key, value){
+					date.setDate(date.getDate()+key);
+					$("#dateRow").append('<td>'+date.toDateString()+'</td>');
+					$("#highRow").append('<td>'+value.high+'&deg;F</td>');
+					$("#lowRow").append('<td>'+value.low+'&deg;F</td>');
+					$("#descRow").append('<td>'+value.desc+'</td>');
+
+					var status = value.desc;
+					console.log(status);
+
+					if (status.includes("sunny")) {
+						$("#imgRow").append('<td><img src="img/warm.gif"/></td>');
+					} else if (status.includes("rain")){
+						$("#imgRow").append('<td><img src="img/cool.gif"/></td>');
+					} else if (status.includes("cloudy")){
+						$("#imgRow").append('<td><img src="img/cloudy.gif"/></td>');
+					} else {
+						$("#imgRow").append('<td>No data</td>');
+					}
+				});
+				$("#forecastTable").show();	
+			} else {
+				alert(data.error);
+			}
+		});
+ 	});
+</script> -->

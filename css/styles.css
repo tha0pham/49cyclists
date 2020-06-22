@@ -165,7 +165,10 @@ textarea{
 input {
 	padding:5px;
 	width: 60%;
+}
 
+select {
+	padding: 5px;
 }
 
 /* form validation */
@@ -234,3 +237,13 @@ input {
 .ui-accordion-header.ui-state-hover { background-color: #edfceb; }
 .ui-accordion-header.ui-state-active { background-color: #004a09; color: white; font-weight: bold; }
 .ui-accordion-content{padding: 0 15px;}
+
+#forecastTable {
+	table-layout: auto;
+}
+
+#forecastTable th, #forecastTable td {
+	padding: 3px 5px;
+	text-align: center;
+	white-space: nowrap;
+}

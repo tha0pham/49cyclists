@@ -191,63 +191,65 @@ $(function(e){
   // end password check
   
   /* AJAX requests *********************/
-  // sign up form
-  $("#signupForm").submit(function(event){
-    event.preventDefault();
-    var requestData = $(this).serialize();
-    console.log(requestData);
+  // AJAX 1: request to an external file - zip.json
+  $("#forecastTable").hide(); 
+    $.getJSON("zip.json", function( data ) {
+        $.each(data, function() {
+          $.each(this, function(key, value) {
+            $("#zip").append('<option value="'+value+'">'+value+'</option>');
+          });
+      });
+    }); // end ajax getJSON
 
-    $.ajax({
-      url: "signup.php",
-      method: "POST",
-      data: requestData,
-      dataType: "json",
-      success: function(response) {
-        $("#signupForm").hide();
-        $("h2").text("Sign up successful");
-
-        var welcomeMessage = "Welcome, " + response.firstName + "! Use your email " + response.email + " to log in.";
-
-        $("section").append($("<p></p>").text(welcomeMessage));
-        $("section").append($("<a href='search.html'></a>").text("Search Routes"));
-      }, //end successful requests handler
-      error: function(response) {
-            alert(response.status);
-      },
-    });//end ajax
-
-  });//end sign up submission
-
-  //search form
-  
-  $("#searchForm").submit(function(e)
-{    e.preventDefault();
+  // AJAX 2: request to another website - wp.zybooks.com
+  $("#zip").change(function(e){
+    var zip = $("#zip").val();
+    var requestData = {"zip":zip};
     
-    var data = "";
-    
-    $.ajax({
-        url: "https://reqres.in/api/products/3",
+    $("#forecastTable").fadeOut("slow");
+
+      $.ajax({
+        url: "https://wp.zybooks.com/weather.php", 
         method: "GET",
-        dataType: "JSON"
-      }).done(function(data){
-        if ( console && console.log ) {
-        console.log(data);
+        data: requestData,
+        dataType: "json",
+      })
+      .done(function(data) {
+        if (data.success == true) {
+
+          console.log(zip);
+          console.log(data.forecast);
+
+          $("#forecastTable tr td").each(function(){
+            $(this).remove();
+          }); 
+
+          var date = new Date();
+          $.each(data.forecast, function(key, value){
+            date.setDate(date.getDate()+key);
+            $("#dateRow").append('<td>'+date.toDateString()+'</td>');
+            $("#highRow").append('<td>'+value.high+'&deg;F</td>');
+            $("#lowRow").append('<td>'+value.low+'&deg;F</td>');
+            $("#descRow").append('<td>'+value.desc+'</td>');
+
+            var status = value.desc;
+
+            if (status.includes("sunny")) {
+              $("#imgRow").append('<td><img src="img/warm.gif"/></td>');
+            } else if (status.includes("rain")){
+              $("#imgRow").append('<td><img src="img/cool.gif"/></td>');
+            } else if (status.includes("cloudy")){
+              $("#imgRow").append('<td><img src="img/cloudy.gif"/></td>');
+            } else {
+              $("#imgRow").append('<td>No data</td>');
+            }
+          });// end each data.forecast
+
+          $("#forecastTable").fadeIn("slow");
+        } else {
+          alert(data.error);
         }
-      });// end ajax request handling
-  });//end search form
-
-
-
-
+      }); // end ajax to wy.zybooks.com
+  }); // end zip on change handler
+/*end AJAX requests***************/
 }); // end ready event
-
-// method to locate UNCC on embedded google map
-function initMap() {
-  // The location of UNCC
-  var uncc = {lat: 35.3036, lng: -80.7324};
-  // The map, centered at UNCC
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uncc});
-  // The marker, positioned at uncc
-  var marker = new google.maps.Marker({position: uncc, map: map});
-} // end initMap
