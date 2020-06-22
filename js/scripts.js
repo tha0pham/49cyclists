@@ -25,7 +25,7 @@ $(function(e){
           $(element).css("boxShadow","0 0 3px green");
         },
         // TODO: submit form using AJAX
-          submitHandler: function() { alert("TODO: submit form using AJAX"); },
+          // submitHandler: function() { alert("TODO: submit form using AJAX"); },
       });//end login validation
 
     });// end login button handler
